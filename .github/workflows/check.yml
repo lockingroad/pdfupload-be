@@ -1,0 +1,27 @@
+name: Local Build
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Echo Env
+        run: echo ${{ github.run_id }}.${{ github.run_number }}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build Local Docker
+        run: docker build -f python3.8.dockerfile -t liuranlzz/pdfmundus:$(date +%s) ./app
+      - name: Echo Docker Image
+        run: docker images
+
+
+
+
